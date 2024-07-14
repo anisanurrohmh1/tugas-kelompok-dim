@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="container">
         <h1>Update Barang</h1>
-        <form action="update.php" method="POST">
+        <form action="update_barang.php" method="POST">
             <input type="hidden" name="id" value="<?php echo htmlspecialchars($barangData['id']); ?>">
             <label>Nama:</label>
             <input type="text" name="nama" value="<?php echo htmlspecialchars($barangData['nama']); ?>" required>

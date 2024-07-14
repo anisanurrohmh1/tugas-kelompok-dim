@@ -1,17 +1,20 @@
 <?php
 require 'database.php';
 require 'barang.php';
+require 'penjualan.php';
 
 $db = new Database();
 $barang = new Barang($db);
+$penjualan = new Penjualan($db);
 
 $barangList = $barang->read();
+$penjualanList = $penjualan->read();
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Daftar Barang</title>
+    <title>Daftar Barang dan Penjualan</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -66,7 +69,7 @@ $barangList = $barang->read();
             margin-bottom: 8px;
             font-weight: bold;
         }
-        form input[type="text"], form input[type="number"] {
+        form input[type="text"], form input[type="number"], form input[type="date"] {
             width: calc(100% - 22px);
             padding: 10px;
             margin-bottom: 10px;
@@ -106,12 +109,13 @@ $barangList = $barang->read();
                 <td><?php echo number_format($barang['harga'], 2); ?></td>
                 <td><?php echo htmlspecialchars($barang['stok']); ?></td>
                 <td>
-                    <a href="update.php?id=<?php echo $barang['id']; ?>">Update</a>
-                    <a href="delete.php?id=<?php echo $barang['id']; ?>">Delete</a>
+                    <a href="update_barang.php?id=<?php echo $barang['id']; ?>">Update</a>
+                    <a href="delete_barang.php?id=<?php echo $barang['id']; ?>">Delete</a>
                 </td>
             </tr>
             <?php endforeach; ?>
         </table>
+
 
         <h2>Tambah Barang</h2>
         <form action="create.php" method="POST">
@@ -121,6 +125,45 @@ $barangList = $barang->read();
             <input type="number" name="harga" required>
             <label>Stok:</label>
             <input type="number" name="stok" required>
+            <input type="submit" value="Tambah">
+        </form>
+
+        <h1>Daftar Penjualan</h1>
+        <table>
+            <tr>
+                <th>ID</th>
+                <!-- <th>ID Barang</th> -->
+                <th>Jumlah</th>
+                <th>Harga Jual</th>
+                <th>Tanggal</th>
+                <!-- <th>Aksi</th> -->
+            </tr>
+            <?php foreach ($penjualanList as $penjualan): ?>
+            <tr>
+                <td><?php echo htmlspecialchars($penjualan['id']); ?></td>
+                <!-- <td><?php echo htmlspecialchars($penjualan['id_barang'] ?? ''); ?></td> -->
+                <td><?php echo htmlspecialchars($penjualan['jumlah'] ?? ''); ?></td>
+                <td><?php echo number_format($penjualan['harga_jual'], 2); ?></td>
+                <td><?php echo htmlspecialchars($penjualan['tanggal'] ?? ''); ?></td>
+                <!-- <td>
+                    <a href="update_penjualan.php?id=<?php echo $penjualan['id']; ?>">Update</a>
+                    <a href="delete_penjualan.php?id=<?php echo $penjualan['id']; ?>">Delete</a>
+                </td> -->
+            </tr>
+            <?php endforeach; ?>
+        </table>
+
+
+        <h2>Tambah Penjualan</h2>
+        <form action="create_penjualan.php" method="POST">
+            <label>ID Barang:</label>
+            <input type="number" name="id_barang" required>
+            <label>Jumlah:</label>
+            <input type="number" name="jumlah" required>
+            <label>Harga Jual:</label>
+            <input type="number" name="harga_jual" required>
+            <label>Tanggal:</label>
+            <input type="date" name="tanggal" required>
             <input type="submit" value="Tambah">
         </form>
     </div>
