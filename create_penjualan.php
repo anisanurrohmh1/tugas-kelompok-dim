@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $harga_jual = $_POST['harga_jual'];
     $tanggal = $_POST['tanggal'];
     $penjualan->create($id_barang, $jumlah, $harga_jual, $tanggal);
-    header('Location: index.php');
+    header('Location: penjualan.php');
     exit();
 }
 ?>

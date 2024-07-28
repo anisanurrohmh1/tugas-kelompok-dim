@@ -1,20 +1,30 @@
 <?php
 require 'database.php';
-require 'barang.php';
-require 'penjualan.php';
+require 'controllers/BarangController.php';
+require 'controllers/PenjualanController.php';
 
-$db = new Database();
-$barang = new Barang($db);
-$penjualan = new Penjualan($db);
+$barangController = new BarangController();
+$penjualanController = new PenjualanController();
 
-$barangList = $barang->read();
-$penjualanList = $penjualan->read();
+$page = isset($_GET['page']) ? $_GET['page'] : 'barang';
+
+switch($page) {
+    case 'barang':
+        $barangList = $barangController->read();
+        break;
+    case 'penjualan':
+        header('Location: page_penjualan.php');
+        exit;
+    default:
+        echo "Halaman tidak ditemukan.";
+        break;
+}
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Daftar Barang dan Penjualan</title>
+    <title>Daftar Barang</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -122,7 +132,7 @@ $penjualanList = $penjualan->read();
         .half-page-image {
             width: 50vw; /* Setengah lebar halaman */
             height: 100%;
-            background-image: url('barang.png'); 
+            background-image: url('barang.png'); /* Ganti dengan path gambar Anda */
             background-size: cover;
             background-position: center;
         }
@@ -135,7 +145,7 @@ $penjualanList = $penjualan->read();
                 Our Website
             </div>
             <div class="nav-links">
-                <a href="index.php">Barang</a>
+                <a href="index.php?page=barang">Barang</a>
                 <a href="page_penjualan.php">Penjualan</a>
                 <a href="laporan.php">Laporan</a> 
             </div>
@@ -168,7 +178,7 @@ $penjualanList = $penjualan->read();
             <?php endforeach; ?>
         </table>
 
-        <h2>Form Tambah Barang</h2>
+        <h2>Tambah Barang</h2>
         <form action="create.php" method="POST">
             <label>Nama:</label>
             <input type="text" name="nama" required>
