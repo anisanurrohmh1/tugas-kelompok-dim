@@ -79,9 +79,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin: auto;
             overflow: hidden;
         }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: orange;
+            padding: 10px 20px;
+            color: #fff;
+        }
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 16px;
+        }
+        .navbar a:hover {
+            background-color: #575757;
+            border-radius: 4px;
+        }
+        .navbar .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .navbar .nav-links {
+            display: flex;
+        }
     </style>
 </head>
 <body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                MyWebsite
+            </div>
+            <div class="nav-links">
+                <a href="index.php">Barang</a>
+                <a href="page_penjualan.php">Penjualan</a>
+                <a href="laporan.php">Laporan</a> 
+            </div>
+        </nav>
+    </header>
     <div class="container">
         <h1>Update Barang</h1>
         <form action="update_barang.php" method="POST">

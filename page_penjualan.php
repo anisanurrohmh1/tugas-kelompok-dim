@@ -122,7 +122,7 @@ $penjualanList = $penjualan->read();
         .half-page-image {
             width: 50vw; /* Setengah lebar halaman */
             height: 100%;
-            background-image: url('barang.png'); 
+            background-image: url('penjualan.jpg'); 
             background-size: cover;
             background-position: center;
         }
@@ -132,7 +132,7 @@ $penjualanList = $penjualan->read();
     <header>
         <nav class="navbar">
             <div class="logo">
-                Our Website
+                MyWebsite
             </div>
             <div class="nav-links">
                 <a href="index.php">Barang</a>
@@ -142,40 +142,41 @@ $penjualanList = $penjualan->read();
         </nav>
     </header>
     <div class="container">
-        <div class="half-page-image-container">
+    <div class="half-page-image-container">
             <div class="half-page-image"></div>
         </div>
-        <h1>Daftar Barang</h1><br><br>
+        <h1>Daftar Penjualan</h1><br><br>
         <table>
             <tr>
                 <th>ID</th>
-                <th>Nama</th>
-                <th>Harga Beli</th>
-                <th>Stok</th>
-                <th>Aksi</th>
+                <th>ID Barang</th>
+                <th>Jumlah</th>
+                <th>Harga Jual</th>
+                <th>Tanggal</th>
+ 
             </tr>
-            <?php foreach ($barangList as $barang): ?>
+            <?php foreach ($penjualanList as $penjualan): ?>
             <tr>
-                <td><?php echo htmlspecialchars($barang['id']); ?></td>
-                <td><?php echo htmlspecialchars($barang['nama']); ?></td>
-                <td><?php echo number_format($barang['harga'], 2); ?></td>
-                <td><?php echo htmlspecialchars($barang['stok']); ?></td>
-                <td>
-                    <a href="update_barang.php?id=<?php echo $barang['id']; ?>">Update</a>
-                    <a href="delete_barang.php?id=<?php echo $barang['id']; ?>">Delete</a>
-                </td>
-            </tr>
+                <td><?php echo htmlspecialchars($penjualan['id']); ?></td>
+                <td><?php echo htmlspecialchars($penjualan['id_barang'] ?? ''); ?></td>
+                <td><?php echo htmlspecialchars($penjualan['jumlah'] ?? ''); ?></td>
+                <td><?php echo number_format($penjualan['harga_jual'], 2); ?></td>
+                <td><?php echo htmlspecialchars($penjualan['tanggal'] ?? ''); ?></td>
+                </tr>
             <?php endforeach; ?>
         </table>
 
-        <h2>Form Tambah Barang</h2>
-        <form action="create.php" method="POST">
-            <label>Nama:</label>
-            <input type="text" name="nama" required>
-            <label>Harga Beli:</label>
-            <input type="number" name="harga" required>
-            <label>Stok:</label>
-            <input type="number" name="stok" required>
+
+        <br><br><br><h2>Form Tambah Penjualan</h2>
+        <form action="create_penjualan.php" method="POST">
+            <label>ID Barang:</label>
+            <input type="number" name="id_barang" required>
+            <label>Jumlah:</label>
+            <input type="number" name="jumlah" required>
+            <label>Harga Jual:</label>
+            <input type="number" name="harga_jual" required>
+            <label>Tanggal:</label>
+            <input type="date" name="tanggal" required>
             <input type="submit" value="Tambah">
         </form>
     </div>

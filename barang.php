@@ -10,11 +10,7 @@ class Barang {
         $sql = "INSERT INTO barang (nama, harga, stok) VALUES (:nama, :harga, :stok)";
         $this->db->query($sql, ['nama' => $nama, 'harga' => $harga, 'stok' => $stok]);
     }
-
-    // public function read() {
-    //     $sql = "SELECT * FROM barang";
-    //     return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-    // }
+ 
     public function read($id = null) {
         if ($id) {
             $sql = "SELECT * FROM barang WHERE id = :id";
@@ -30,20 +26,14 @@ class Barang {
         $this->db->query($sql, ['id' => $id, 'nama' => $nama, 'harga' => $harga, 'stok' => $stok]);
     }
 
-    // public function delete($id) {
-    //     $sql = "DELETE FROM barang WHERE id = :id";
-    //     $this->db->query($sql, ['id' => $id]);
-    // }
+ 
     public function delete($id) {
-        // Hapus entri terkait di tabel pembelian
         $sql = "DELETE FROM pembelian WHERE id_barang = :id";
         $this->db->query($sql, ['id' => $id]);
 
-        // Hapus entri terkait di tabel penjualan
         $sql = "DELETE FROM penjualan WHERE id_barang = :id";
         $this->db->query($sql, ['id' => $id]);
 
-        // Hapus entri di tabel barang
         $sql = "DELETE FROM barang WHERE id = :id";
         $this->db->query($sql, ['id' => $id]);
     }

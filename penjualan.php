@@ -16,7 +16,7 @@ class Penjualan {
             $sql = "SELECT * FROM penjualan WHERE id = :id";
             return $this->db->query($sql, ['id' => $id])->fetch(PDO::FETCH_ASSOC);
         } else {
-            $sql = "SELECT p.id, b.nama, p.jumlah, p.harga_jual, p.tanggal FROM penjualan p JOIN barang b ON p.id_barang = b.id";
+            $sql = "SELECT p.id, p.id_barang, b.nama, p.jumlah, p.harga_jual, p.tanggal FROM penjualan p JOIN barang b ON p.id_barang = b.id";
             return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
         }
     }
