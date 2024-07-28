@@ -179,6 +179,27 @@ $penjualanList = $penjualan->read();
             <input type="date" name="tanggal" required>
             <input type="submit" value="Tambah">
         </form>
+
+        <h1>Kombinasi Paket Penjualan Optimal</h1>
+        <h3><center>
+        <?php
+        $command = escapeshellcmd('/Library/WebServer/Documents/latihan/venv/bin/python /Library/WebServer/Documents/latihan/kombinasi_paket.py');
+        $output = shell_exec("$command 2>&1");
+
+ 
+        preg_match('/x_A = \d+\.?\d*/', $output, $x_A_match);
+        preg_match('/x_B = \d+\.?\d*/', $output, $x_B_match);
+        preg_match('/x_C = \d+\.?\d*/', $output, $x_C_match);
+        preg_match('/Total Harga = \d+\.?\d*/', $output, $total_harga_match);
+
+        echo "<pre>";
+        if (!empty($x_A_match)) echo $x_A_match[0] . "\n";
+        if (!empty($x_B_match)) echo $x_B_match[0] . "\n";
+        if (!empty($x_C_match)) echo $x_C_match[0] . "\n";
+        if (!empty($total_harga_match)) echo $total_harga_match[0] . "\n";
+        echo "</pre>";
+        ?>
+        </center></h3>
     </div>
 </body>
 </html>
